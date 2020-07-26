@@ -58,6 +58,8 @@ body{
 
     font-family: Roboto;
     font-size: 36px;
+
+    cursor: pointer;
 }
 
 #header-button-container{
