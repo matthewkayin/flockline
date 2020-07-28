@@ -253,6 +253,66 @@ body{
     background-color: var(--color-yellow);
     margin: 0 auto;
 
+    display: block;
     position: relative;
     top: 25px;
+}
+
+#puzzle-title-input{
+
+    font-family: RobotoMono;
+    font-weight: 350;
+    font-size: 15px;
+
+    display: block;
+    width: 350px;
+
+    border: 1px solid var(--color-cream);
+    padding: 15px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+#edit-wrapper{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 640px;
+    margin: 0 auto;
+}
+
+#puzzle-tool-select{
+
+    font-family: RobotoMono;
+    font-weight: 350;
+    font-size: 12px;
+
+    width: 150px;
+    height: 45px;
+
+    border: 1px solid var(--color-cream);
+    padding: 10px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#save-button{
+
+    background-color: var(--color-yellow);
+
+    font-family: RobotoMono;
+    font-weight: 350;
+    font-size: 15px;
+
+    width: 150px;
+
+    border: 1px solid var(--color-yellow);
+    padding: 10px;
+    margin-top: 25px;
+    box-sizing: border-box;
+
+    cursor: pointer;
 }

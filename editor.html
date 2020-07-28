@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flockline</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header-wrapper">
+            <div id="header">
+                <h1 id="header-title" onclick="location.href='/'">flockline</h1>
+                <div id="header-button-container">
+                    <h2 class="header-button" onclick="location.href='/login'">Login</h2>
+                    <h2 class="header-button" onclick="location.href='/register'">Register</h2>
+                </div>
+            </div>
+        </div>
+        <div id="form-wrapper">
+            <input id="puzzle-title-input" type="text" placeholder="New Puzzle">
+            <div id="edit-wrapper">
+                <select id="puzzle-tool-select">
+                    <option value="player">Place player</option>
+                    <option value="duckling">Place duckling</option>
+                    <option value="bread">Place bread</option>
+                    <option value="goose">Place goose</option>
+                    <option value="erase">Erase</option>
+                </select>
+                <input id="save-button" type="submit" value="Save">
+            </div>
+            <canvas id="duckgame" width="640" height="480"></canvas>
+            <script type="text/javascript" src="duckedit.js"></script>
+        </div>
+    </body>
+</html>
