@@ -38,12 +38,13 @@ app.use(session({
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
+const initial_puzzle_state = '{"victory":0,"player_x":2,"player_y":2,"player_direction":1,"flockline_x":[],"flockline_y":[],"flockline_direction":[],"duckling_x":[],"duckling_y":[],"duckling_direction":[],"duckling_waddling":[],"duckling_holds_bread":[],"bread_x":[],"bread_y":[],"goose_x":[],"goose_y":[],"goose_direction":[]}';
 const queries = {
     register:  'insert into users (username, password) values (?, ?)',
     login: 'select userid, username from users where username = ? and password = ?',
-    create_puzzle: 'insert into puzzles (userid, title) values (?, ?)',
-    update_puzzle: 'update puzzles set title = ? where puzzleid = ?',
-    get_puzzle: 'select puzzleid, userid, title from puzzles where puzzleid = ?',
+    create_puzzle: 'insert into puzzles (userid, title, state) values (?, ?, ?)',
+    update_puzzle: 'update puzzles set title = ?, state = ? where puzzleid = ?',
+    get_puzzle: 'select puzzleid, userid, title, state from puzzles where puzzleid = ?',
     get_all_puzzles: 'select puzzleid, userid, title from puzzles',
 };
 
@@ -211,7 +212,15 @@ app.get('/edit', function(request, response){
 
         if(!request.query.puzzleid){
 
-            send_editpage("PUZZLEID", "New Puzzle");
+            sqlserver.query(queries.create_puzzle, [request.session.userid, "New Puzzle", initial_puzzle_state], function(error, results){
+
+                if(error){
+
+                    throw error;
+                }
+
+                response.redirect('/edit?puzzleid=' + results.insertId);
+            });
 
         }else{
 
@@ -246,43 +255,26 @@ app.post('/puzzle_data', function(request, response){
         response.end();
     }
 
-    function save_puzzle(puzzleid, puzzle_state){
+    sqlserver.query(queries.update_puzzle, [request.body.title, JSON.stringify(request.body.state), request.body.puzzleid], function(error, results){
 
-        fs.writeFile("puzzles/" + puzzleid + ".json", JSON.stringify(puzzle_state), function(error){
+        if(error){
 
-            if(error){
+            throw error;
+        }
+    });
+});
 
-                throw error;
-            }
+app.get('/puzzle_data', function(request, response){
 
-            response.redirect('/list');
-        });
-    }
+    sqlserver.query(queries.get_puzzle, [request.query.puzzleid], function(error, results){
 
-    if(request.body.puzzleid.toString() == "PUZZLEID"){
+        if(error){
 
-        sqlserver.query(queries.create_puzzle, [request.session.userid, request.body.title], function(error, results){
+            throw error;
+        }
 
-            if(error){
-
-                throw error;
-            }
-
-            save_puzzle(results.insertId, request.body.state);
-        });
-
-    }else{
-
-        sqlserver.query(queries.update_puzzle, [request.body.title, request.body.puzzleid], function(error, results){
-
-            if(error){
-
-                throw error;
-            }
-
-            save_puzzle(request.body.puzzleid, request.body.state);
-        });
-    }
+        response.send(JSON.parse(results[0].state));
+    });
 });
 
 app.get('/play', function(request, response){

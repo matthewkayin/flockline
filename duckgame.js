@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }else{
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/puzzles/" + puzzleid + ".json", true);
+        xhr.open("GET", "/puzzle_data?puzzleid=" + puzzleid, true);
         xhr.responseType = "json";
         xhr.send();
         xhr.onreadystatechange = function(){
