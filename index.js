@@ -196,6 +196,9 @@ app.get('/edit', function(request, response){
             var edit_page = fs.readFileSync('editor.html').toString();
             edit_page = edit_page.replace(/PUZZLEID/gi, puzzleid);
             edit_page = edit_page.replace(/PUZZLETITLE/gi, puzzle_title);
+            var logged_in_string = request.session.loggedin ? "user_logged_in = true;" : "user_logged_in = false;";
+            edit_page = edit_page.replace(/\/\/USERLOGGEDIN/gi, logged_in_string);
+            edit_page = edit_page.replace(/USERNAME/gi, request.session.username);
 
             response.send(edit_page);
             response.end();
@@ -300,6 +303,12 @@ app.get('/play', function(request, response){
             var play_page = fs.readFileSync('player.html').toString();
             play_page = play_page.replace(/PUZZLEID/gi, request.query.puzzleid.toString());
             play_page = play_page.replace(/PUZZLETITLE/gi, results[0].title);
+            var logged_in_string = request.session.loggedin ? "user_logged_in = true;" : "user_logged_in = false;";
+            play_page = play_page.replace(/\/\/USERLOGGEDIN/gi, logged_in_string);
+            if(request.session.loggedin){
+
+                play_page = play_page.replace(/USERNAME/gi, request.session.username);
+            }
 
             response.send(play_page);
             response.end();

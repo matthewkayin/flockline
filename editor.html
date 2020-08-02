@@ -13,6 +13,7 @@
                     <h2 class="header-button" onclick="location.href='/login'">Login</h2>
                     <h2 class="header-button" onclick="location.href='/register'">Register</h2>
                 </div>
+                <h2 id="header-greeting">Welcome, USERNAME</h2>
             </div>
         </div>
         <div id="form-wrapper">
@@ -32,4 +33,17 @@
             <script type="text/javascript" src="duckedit.js"></script>
         </div>
     </body>
+    <script type="text/javascript">
+        var user_logged_in = true;
+        //USERLOGGEDIN
+
+        if(!user_logged_in){
+
+            document.getElementById("header-greeting").remove();
+
+        }else{
+
+            document.getElementById("header-button-container").remove();
+        }
+    </script>
 </html>
