@@ -54,10 +54,35 @@ const MAP_HEIGHT = canvas.height / TILE_WIDTH;
 const direction_vector = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 
 var input_shift_down = false;
-var states = [get_initial_state()];
+var loaded_state = false;
+var states = [get_empty_state()];
 
 setInterval(run, 0);
 setInterval(render, FRAME_TIME);
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    let puzzleid = document.getElementById("puzzle-id-input").value;
+    if(puzzleid == "PUZZLEID"){
+
+        loaded_state = true;
+
+    }else{
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/puzzles/" + puzzleid + ".json", true);
+        xhr.responseType = "json";
+        xhr.send();
+        xhr.onreadystatechange = function(){
+
+            if(xhr.readyState == 4){
+
+                states[0] = xhr.response;
+                loaded_state = true;
+            }
+        }
+    }
+});
 
 function run(){
 
@@ -172,9 +197,9 @@ window.addEventListener('keyup', function(event){
     }
 }, false);
 
-function get_initial_state(){
+function get_empty_state(){
 
-    var initial_state = {
+    return {
         victory: 0,
 
         player_x: 2,
@@ -198,31 +223,6 @@ function get_initial_state(){
         goose_y: [],
         goose_direction: []
     };
-
-    initial_state.duckling_x.push(4);
-    initial_state.duckling_y.push(4);
-    initial_state.duckling_direction.push(1);
-    initial_state.duckling_waddling.push(false);
-    initial_state.duckling_holds_bread.push(false);
-    initial_state.duckling_x.push(2);
-    initial_state.duckling_y.push(4);
-    initial_state.duckling_direction.push(1);
-    initial_state.duckling_waddling.push(false);
-    initial_state.duckling_holds_bread.push(false);
-    initial_state.duckling_x.push(4);
-    initial_state.duckling_y.push(2);
-    initial_state.duckling_direction.push(2);
-    initial_state.duckling_waddling.push(false);
-    initial_state.duckling_holds_bread.push(false);
-
-    initial_state.bread_x.push(6);
-    initial_state.bread_y.push(6);
-
-    initial_state.goose_x.push(16);
-    initial_state.goose_y.push(1);
-    initial_state.goose_direction.push(2);
-
-    return initial_state;
 }
 
 function handle_move(previous_state, player_move){
@@ -581,6 +581,18 @@ function render(){
     let current_state = states[states.length - 1];
 
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if(!loaded_state){
+
+        context.font = "30px sans-serif";
+        context.fillStyle = "white";
+        context.textAlign = "center";
+        context.fillText("Loading...", canvas.width / 2, canvas.height / 2);
+        context.textAlign = "left";
+
+        frames++;
+        return;
+    }
 
     // Draw background
     for(let i = 0; i < TILE_WIDTH; i++){

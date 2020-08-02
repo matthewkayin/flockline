@@ -16,7 +16,7 @@
             </div>
         </div>
         <div id="form-wrapper">
-            <input id="puzzle-title-input" type="text" placeholder="New Puzzle">
+            <input id="puzzle-title-input" type="text" value="PUZZLETITLE">
             <div id="edit-wrapper">
                 <select id="puzzle-tool-select">
                     <option value="player">Place player</option>
@@ -25,9 +25,10 @@
                     <option value="goose">Place goose</option>
                     <option value="erase">Erase</option>
                 </select>
-                <input id="save-button" type="submit" value="Save">
+                <input id="save-button" type="submit" value="Save" onclick="export_state();">
             </div>
             <canvas id="duckgame" width="640" height="480"></canvas>
+            <input id="puzzle-id-input" type="hidden" value="PUZZLEID">
             <script type="text/javascript" src="duckedit.js"></script>
         </div>
     </body>

@@ -13,12 +13,27 @@
                     <h2 class="header-button" onclick="location.href='/login'">Login</h2>
                     <h2 class="header-button" onclick="location.href='/register'">Register</h2>
                 </div>
+                <h2 id="header-greeting">Welcome, USERNAME</h2>
             </div>
         </div>
         <div id="form-wrapper">
             <input type="text" id="search" placeholder="Search...">
-            <h1 id="new-puzzle" class="puzzle-item">Create New Puzzle</h1>
+            <h1 id="new-puzzle" class="puzzle-item" onclick="location.href='/edit';">Create New Puzzle</h1>
             <!-- PUZZLE LIST -->
         </div>
     </body>
+    <script type="text/javascript">
+        var user_logged_in = true;
+        //USERLOGGEDIN
+
+        if(!user_logged_in){
+
+            document.getElementById("new-puzzle").remove();
+            document.getElementById("header-greeting").remove();
+
+        }else{
+
+            document.getElementById("header-button-container").remove();
+        }
+    </script>
 </html>

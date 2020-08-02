@@ -5,6 +5,7 @@
     --color-cream: #f7fff7;
     --color-red: ff6b6b;
     --color-yellow: #ffe66d;
+    --color-yellow-drab: #7a6600;
 }
 
 @font-face{
@@ -84,6 +85,15 @@ body{
 
     cursor: pointer;
 }
+
+#header-greeting{
+
+    color: var(--color-yellow);
+
+    font-family: RobotoMono;
+    font-size: 24px;
+}
+
 
 #content{
 
@@ -237,8 +247,58 @@ body{
     cursor: pointer;
 }
 
-#puzzle-title{
+.puzzle-item-wrapper{
 
+    width: 350px;
+    margin: 0 auto;
+    position: relative;
+    top: 10px;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 25px;
+}
+
+.small-puzzle-item{
+
+    color: var(--color-cream);
+
+    font-family: RobotMono;
+    font-weight: 350;
+    font-size: 20px;
+
+    text-align: left;
+
+    width: 270px;
+
+    border: 1px solid var(--color-cream);
+    padding: 15px;
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+
+.edit-puzzle-item{
+
+    color: var(--color-cream);
+
+    font-family: RobotMono;
+    font-weight: 350;
+    font-size: 20px;
+
+    text-align: left;
+
+    width: 60px;
+
+    border: 1px solid var(--color-cream);
+    padding: 15px;
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+
+#puzzle-title{
 
     color: var(--color-cream);
 
@@ -315,4 +375,33 @@ body{
     box-sizing: border-box;
 
     cursor: pointer;
+}
+
+#save-button:disabled{
+
+    color: var(--color-cream);
+    background-color: var(--color-yellow-drab);
+    border: 1px solid var(--color-yellow-drab);
+
+    cursor: default;
+}
+
+#error-image{
+
+    width: auto;
+    height: 150px;
+    transform: rotate(235deg);
+
+    margin-top: 150px;
+}
+
+#error-text{
+
+    color: var(--color-cream);
+
+    font-family: RobotoMono;
+    font-weight: 350;
+    font-size: 20px;
+
+    margin-top: 20px;
 }
