@@ -7,7 +7,7 @@ drop table users;
 create table users (
 
     userid int not null primary key auto_increment,
-    username varchar(255) not null unique key,
+    username varchar(255) not null, 
     password varchar(255) not null
 );
 
