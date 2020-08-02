@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var express = require('express');
 var session = require('express-session');
 var bodyparser = require('body-parser');
+var memorystore = require('memorystore')(session);
 var path = require('path');
 var fs = require('fs');
 
@@ -27,8 +28,12 @@ sqlserver.connect(function(error){
 var app = express();
 app.use(session({
     secret: 'duckduckduck',
+    cookie: { maxAge: 86400000 },
+    store: new memorystore({
+        checkPeriod: 8640000
+    }),
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
